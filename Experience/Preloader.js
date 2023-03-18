@@ -22,15 +22,16 @@ export default class Preloader extends EventEmitter {
             this.setAssets();
             this.playIntro();
         });
-        // console.log(this.bear);
     }
 
     setAssets() {
         // convert(document.querySelector(".intro-text"));
-        convert(document.querySelector(".hero-main-title"));
-        convert(document.querySelector(".hero-main-description"));
-        convert(document.querySelector(".hero-second-subheading"));
-        convert(document.querySelector(".second-sub"));
+        // convert(document.querySelector(".hero-main-title"));
+        // const heromaintitle = document.querySelector('.hero-main-title');
+        // heromaintitle.classList.add('fadeIn');
+        // convert(document.querySelector(".hero-main-description"));
+        // convert(document.querySelector(".hero-second-subheading"));
+        // convert(document.querySelector(".second-sub"));
 
         this.bear = this.experience.world.bear.actualBear;
         this.bearChildren = this.experience.world.bear.bearChildren;
@@ -39,7 +40,7 @@ export default class Preloader extends EventEmitter {
     firstIntro() {
         return new Promise((resolve) => {
             this.timeline = new GSAP.timeline();
-            this.timeline.set(".animatedis", { y: 0, yPercent: 100 });
+            this.timeline.set(".hero-main-title", { y: 0, yPercent: 100 });
             this.timeline.to(".preloader", {
                 opacity: 0,
                 delay: 1,
@@ -106,7 +107,15 @@ export default class Preloader extends EventEmitter {
                         onComplete: resolve,
                     },
                     "same"
-                );
+                )
+                // .to(
+                //     ".hero-main-title",
+                //     {
+                //         autoAlpha: 0,
+                //         onComplete: resolve,
+                //     },
+                //     "same"
+                // );
         });
     }
 
@@ -189,41 +198,42 @@ export default class Preloader extends EventEmitter {
                     "fadeout"
                 )
                 .to(
-                    ".hero-main-title .animatedis",
+                    ".hero-main-title",
                     {
                         yPercent: 0,
                         stagger: 0.07,
                         ease: "back.out(1.7)",
+                        autoAlpha: 1
                     },
                     "introtext"
                 )
-                .to(
-                    ".hero-main-description .animatedis",
-                    {
-                        yPercent: 0,
-                        stagger: 0.07,
-                        ease: "back.out(1.7)",
-                    },
-                    "introtext"
-                )
-                .to(
-                    ".first-sub .animatedis",
-                    {
-                        yPercent: 0,
-                        stagger: 0.07,
-                        ease: "back.out(1.7)",
-                    },
-                    "introtext"
-                )
-                .to(
-                    ".second-sub .animatedis",
-                    {
-                        yPercent: 0,
-                        stagger: 0.07,
-                        ease: "back.out(1.7)",
-                    },
-                    "introtext"
-                )
+                // .to(
+                //     ".hero-main-description .animatedis",
+                //     {
+                //         yPercent: 0,
+                //         stagger: 0.07,
+                //         ease: "back.out(1.7)",
+                //     },
+                //     "introtext"
+                // )
+                // .to(
+                //     ".first-sub .animatedis",
+                //     {
+                //         yPercent: 0,
+                //         stagger: 0.07,
+                //         ease: "back.out(1.7)",
+                //     },
+                //     "introtext"
+                // )
+                // .to(
+                //     ".second-sub .animatedis",
+                //     {
+                //         yPercent: 0,
+                //         stagger: 0.07,
+                //         ease: "back.out(1.7)",
+                //     },
+                //     "introtext"
+                // )
                 .to(".arrow-svg-wrapper", {
                     opacity: 1,
                     onComplete: resolve,

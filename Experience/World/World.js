@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 
 import Bear from "./Bear.js";
+import Objects from "./Objects.js";
 import Floor from "./Floor.js";
 import Controls from "./Controls.js";
 import Environment from "./Environment.js";
@@ -22,6 +23,7 @@ export default class World extends EventEmitter {
             this.environment = new Environment();
             this.floor = new Floor();
             this.bear = new Bear();
+            this.objects = new Objects();
             // this.controls = new Controls();
             this.emit("worldready");
         });
@@ -46,6 +48,9 @@ export default class World extends EventEmitter {
         }
         if (this.controls) {
             this.controls.update();
+        }
+        if (this.objects){
+            this.objects.update();
         }
     }
 }
