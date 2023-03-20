@@ -28,25 +28,17 @@ export default class Objects {
     }
 
     setFlower() {
-        // console.log(this.actualbear);
         this.actualbear.children.forEach((child) => {
             if (child.name === "flowerBone") {
-                // console.log(child);
                 this.flower = child;
                 child.castShadow = true;
                 child.position.set(-2, 0, 3);
                 child.scale.set(0, 0, 0);
             }
         });
-        // console.log(this.flower);
         this.flower.children.forEach((child) => {
             if (child.name === "purple-flower") {
-                // console.log(child.scale);
                 this.purpleFlower = child;
-                // child.castShadow = true;
-                // child.position.set(0, 0, 0);
-                // child.scale.set(0, 0, 0);
-
             }
         });
 
@@ -57,9 +49,6 @@ export default class Objects {
 
     onScroll() {
         window.addEventListener("wheel", (e) => {
-            // e.preventDefault();
-            // this.playScrollAnimations();
-            // console.log(this.scrollPercent);
 
             if (e.deltaY > 1) {
                 this.flower.position.z -= 0.1;
@@ -73,9 +62,6 @@ export default class Objects {
             else {
                 this.flower.position.z += 0.1;
             }
-            // if (this.scrollPercent > 50) {
-            //     this.setTweenAnimation();
-            // } 
         });
     }
 
@@ -83,13 +69,5 @@ export default class Objects {
 
     update() {
         this.flowermixer.update(this.time.delta * 0.0009);
-
-        // オブジェクトが下から上に移動してまた元の位置に戻る
-        // if (this.actualbear.children[4].position.z < -10) {
-        //     this.actualbear.children[4].position.z = 10;
-        // }
-        // if (this.actualbear.children[4].position.z > -10) {
-        //     this.actualbear.children[4].position.z -= 0.01;
-        // }
     }
 }

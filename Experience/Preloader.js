@@ -25,14 +25,6 @@ export default class Preloader extends EventEmitter {
     }
 
     setAssets() {
-        // convert(document.querySelector(".intro-text"));
-        // convert(document.querySelector(".hero-main-title"));
-        // const heromaintitle = document.querySelector('.hero-main-title');
-        // heromaintitle.classList.add('fadeIn');
-        // convert(document.querySelector(".hero-main-description"));
-        // convert(document.querySelector(".hero-second-subheading"));
-        // convert(document.querySelector(".second-sub"));
-
         this.bear = this.experience.world.bear.actualBear;
         this.bearChildren = this.experience.world.bear.bearChildren;
     }
@@ -59,11 +51,6 @@ export default class Preloader extends EventEmitter {
                         ease: "back.out(2.5)",
                         duration: 0.7,
                     })
-                    // .to(this.bear.position, {
-                    //     x: -1,
-                    //     ease: "power1.out",
-                    //     duration: 0.7,
-                    // });
             } else {
                 this.timeline
                     .to(this.bearChildren.footprint.scale, {
@@ -73,18 +60,8 @@ export default class Preloader extends EventEmitter {
                         ease: "back.out(2.5)",
                         duration: 0.7,
                     })
-                    // .to(this.bear.position, {
-                    //     z: -1,
-                    //     ease: "power1.out",
-                    //     duration: 0.7,
-                    // });
             }
             this.timeline
-                // .to(".intro-text .animatedis", {
-                //     yPercent: 0,
-                //     stagger: 0.05,
-                //     ease: "back.out(1.7)",
-                // })
                 .to(
                     ".arrow-svg-wrapper",
                     {
@@ -108,14 +85,6 @@ export default class Preloader extends EventEmitter {
                     },
                     "same"
                 )
-                // .to(
-                //     ".hero-main-title",
-                //     {
-                //         autoAlpha: 0,
-                //         onComplete: resolve,
-                //     },
-                //     "same"
-                // );
         });
     }
 
@@ -124,15 +93,6 @@ export default class Preloader extends EventEmitter {
             this.secondTimeline = new GSAP.timeline();
 
             this.secondTimeline
-                // .to(
-                //     ".intro-text .animatedis",
-                //     {
-                //         yPercent: 100,
-                //         stagger: 0.05,
-                //         ease: "back.in(1.7)",
-                //     },
-                //     "fadeout"
-                // )
                 .to(
                     ".arrow-svg-wrapper",
                     {
@@ -150,22 +110,6 @@ export default class Preloader extends EventEmitter {
                     },
                     "same"
                 )
-                // .to(
-                //     this.bearChildren.footprint.rotation,
-                //     {
-                //         y: 2 * Math.PI + Math.PI / 4,
-                //     },
-                //     "same"
-                // )
-                // .to(
-                //     this.bearChildren.footprint.scale,
-                //     {
-                //         x: 10,
-                //         y: 10,
-                //         z: 10,
-                //     },
-                //     "same"
-                // )
                 .to(
                     this.camera.orthographicCamera.position,
                     {
@@ -173,15 +117,6 @@ export default class Preloader extends EventEmitter {
                     },
                     "same"
                 )
-                // .to(
-                //     this.bearChildren.footprint.position,
-                //     {
-                //         x: 0,
-                //         y: 0,
-                //         z: 0,
-                //     },
-                //     "same"
-                // )
                 .set(this.bearChildren.metarig.scale, {
                     x: 0.6,
                     y: 0.6,
@@ -207,33 +142,6 @@ export default class Preloader extends EventEmitter {
                     },
                     "introtext"
                 )
-                // .to(
-                //     ".hero-main-description .animatedis",
-                //     {
-                //         yPercent: 0,
-                //         stagger: 0.07,
-                //         ease: "back.out(1.7)",
-                //     },
-                //     "introtext"
-                // )
-                // .to(
-                //     ".first-sub .animatedis",
-                //     {
-                //         yPercent: 0,
-                //         stagger: 0.07,
-                //         ease: "back.out(1.7)",
-                //     },
-                //     "introtext"
-                // )
-                // .to(
-                //     ".second-sub .animatedis",
-                //     {
-                //         yPercent: 0,
-                //         stagger: 0.07,
-                //         ease: "back.out(1.7)",
-                //     },
-                //     "introtext"
-                // )
                 .to(".arrow-svg-wrapper", {
                     opacity: 1,
                     onComplete: resolve,
@@ -296,9 +204,6 @@ export default class Preloader extends EventEmitter {
     }
 
     scale() {
-        // this.bearChildren.rectLight.width = 0;
-        // this.bearChildren.rectLight.height = 0;
-
         if (this.device === "desktop") {
             this.bear.scale.set(1, 1, 1);
         } else {

@@ -14,9 +14,4 @@ export default [
         type: "texture",
         path: "/textures/flower.png",
     },
-    // {
-    //     name: "room",
-    //     type: "glbModel",
-    //     path: "/models/Finale Version 16.glb",
-    // },
 ];

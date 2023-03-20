@@ -28,7 +28,6 @@ export default class Environment {
         this.gui.addColor(this.obj, "colorObj").onChange(() => {
             this.sunLight.color.copy(this.obj.colorObj);
             this.ambientLight.color.copy(this.obj.colorObj);
-            // console.log(this.obj.colorObj);
         });
         this.gui.add(this.obj, "intensity", 0, 10).onChange(() => {
             this.sunLight.intensity = this.obj.intensity;
@@ -62,33 +61,6 @@ export default class Environment {
         this.scene.add(this.fireflies);
         this.fireflies.position.set(0, -2, 0);
     }
-
-    // setFlowers() {
-    //     this.flowersGeometry = new THREE.BufferGeometry();
-    //     this.flowersCount = 30;
-    //     this.positionArray = new Float32Array(this.flowersCount * 3);
-
-    //     for (let i = 0; i < this.flowersCount; i++) {
-    //         this.positionArray[i * 3 + 0] = (Math.random() - 0.5) * 4;
-    //         this.positionArray[i * 3 + 1] = Math.random() * 0;
-    //         this.positionArray[i * 3 + 2] = (Math.random() - 0.5) * 4;
-    //     }
-
-    //     this.flowersGeometry.setAttribute('position', new THREE.BufferAttribute(this.positionArray, 3));
-    //     // Material
-    //     this.flowersMaterial = new THREE.PointsMaterial({ 
-    //         size: 20, 
-    //         sizeAttenuation: true,
-    //         // map: this.particleTexture,
-    //         transparent: true,
-    //         alphaMap: this.particleTexture,
-    //         color: new THREE.Color('#191970')
-    //     });
-    //     // Points
-    //     this.flowers = new THREE.Points(this.flowersGeometry, this.flowersMaterial);
-    //     this.scene.add(this.flowers);
-    //     this.flowers.position.set(0, 0, 0);
-    // }
 
     setFlowers() {
         this.flowersbox = new THREE.Group();
@@ -178,16 +150,12 @@ export default class Environment {
             GSAP.to(this.flowersbox.position, {
                 x: 0,
                 y: 0,
-                // z: 0,
             });
         }
     }
 
     onScroll() {
         window.addEventListener("wheel", (e) => {
-            // e.preventDefault();
-            // this.playScrollAnimations();
-            // console.log(this.scrollPercent);
 
             if (e.deltaY > 1) {
                 this.flowersbox.position.z -= 0.1;

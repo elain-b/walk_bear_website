@@ -24,9 +24,6 @@ export default class Controls {
         this.circleSecond = this.experience.world.floor.circleSecond;
         this.circleThird = this.experience.world.floor.circleThird;
 
-        // console.log(this.objects.purpleFlower.scale);
-        // console.log(this.bear);
-
         GSAP.registerPlugin(ScrollTrigger);
 
         document.querySelector(".page").style.overflow = "visible";
@@ -96,12 +93,7 @@ export default class Controls {
             "(min-width: 969px)": () => {
                 this.bear.position.set(0, 0, 0);
                 this.bear.scale.set(0.6, 0.6, 0.6);
-                // this.rectLight.width = 0.5;
-                // this.rectLight.height = 0.7;
                 this.camera.orthographicCamera.position.set(0, 6.5, 10);
-                // this.objects.flower.scale.set(2, 2, 2);
-                // this.objects.purpleFlower.scale.set(2, 2, 2);
-                // console.log(this.objects.purpleFlower.scale);
                 this.environment.flowersbox.position.y = 0;
 
                 this.items = GSAP.utils.toArray('.section');
@@ -117,7 +109,6 @@ export default class Controls {
                             y: 0,
                             autoAlpha: 1,
                             scrollTrigger: {
-                                // trigger: ".first-move .second-move",
                                 trigger: item,
                                 toggleActions: "play none none reset",
                                 start: "bottom bottom",
@@ -136,54 +127,8 @@ export default class Controls {
                         scrub: 0.6,
                         // markers: true,
                         invalidateOnRefresh: true,
-                        // onEnter: () => {
-                        //     // this.bear.position.y = 0.3;
-                        //     this.previousAction = this.activeAction;
-                        //     this.activeAction = this.mixer.clipAction(this.animations[0]);
-
-                        //     if (this.activeAction !== this.previousAction) {
-                        //         this.previousAction.fadeOut(0.5);
-                        //     }
-
-                        //     this.activeAction.clampWhenFinished = true;
-                        //     this.activeAction.setLoop(THREE.LoopRepeat);
-
-                        //     this.activeAction
-                        //         .reset()
-                        //         .setEffectiveTimeScale(1)
-                        //         .setEffectiveWeight(1)
-                        //         .fadeIn(0.5)
-                        //         .play();
-                        // },
-                        // onLeaveBack: () => {
-                        //     this.previousAction = this.activeAction;
-                        //     this.activeAction = this.mixer.clipAction(this.animations[5]);
-
-                        //     if (this.activeAction !== this.previousAction) {
-                        //         this.previousAction.fadeOut(0.5);
-                        //     }
-
-                        //     this.activeAction.clampWhenFinished = true;
-                        //     this.activeAction.setLoop(THREE.LoopRepeat);
-
-                        //     this.activeAction
-                        //         .reset()
-                        //         .setEffectiveTimeScale(1)
-                        //         .setEffectiveWeight(1)
-                        //         .fadeIn(0.5)
-                        //         .play();
-                        // }
                     },
                 });
-                // this.firstMoveTimeline.fromTo(
-                //     this.bear.children[0].position,
-                //     { x: 0, y: 0, z: 0 },
-                //     {
-                //         x: () => {
-                //             return this.sizes.width * 0.0014;
-                //         }
-                //     }
-                // );
 
                 // Second section ----------------------------
                 this.secondMoveTimeline = new GSAP.timeline({
@@ -195,7 +140,6 @@ export default class Controls {
                         // markers: true,
                         invalidateOnRefresh: true,
                         onEnter: () => {
-                            // this.bear.position.y = 0.3;
                             this.previousAction = this.activeAction;
                             this.activeAction = this.mixer.clipAction(this.animations[3]);
 
@@ -233,39 +177,6 @@ export default class Controls {
                         }
                     },
                 });
-                // .to(
-                //     this.bear.children[0].position,
-                //     {
-                //         x: () => {
-                //             return -1.5;
-                //         },
-                //         // z: () => {
-                //         //     return 2;
-                //         // },
-                //     },
-                //     "same"
-                // )
-                // .to(
-                //     this.bear.children[0].scale,
-                //     {
-                //         x: 1,
-                //         y: 1,
-                //         z: 1,
-                //     },
-                //     "same"
-                // );
-                // .to(this.camera.orthographicCamera.position, {
-                //     y: 1.5,
-                //     x: -4.1,
-                // });
-                // .to(
-                //     this.rectLight,
-                //     {
-                //         width: 0.5 * 4,
-                //         height: 0.7 * 4,
-                //     },
-                //     "same"
-                // );
 
                 this.secondSectionTimeline = new GSAP.timeline({
                     scrollTrigger: {
@@ -275,53 +186,8 @@ export default class Controls {
                         scrub: 0.6,
                         // markers: true,
                         invalidateOnRefresh: true,
-                        // onToggle: () => {
-                        //     console.log("wait animation");
-                        //     this.previousAction = this.activeAction;
-                        //     this.activeAction = this.mixer.clipAction(this.animations[0]);
-
-                        //     if (this.activeAction !== this.previousAction) {
-                        //         this.previousAction.fadeOut(0.5);
-                        //     }
-
-                        //     this.activeAction.clampWhenFinished = true;
-                        //     this.activeAction.setLoop(THREE.LoopRepeat);
-
-                        //     this.activeAction
-                        //         .reset()
-                        //         .setEffectiveTimeScale(1)
-                        //         .setEffectiveWeight(1)
-                        //         .fadeIn(0.5)
-                        //         .play();
-                        // }
                     },
                 });
-                // .to(
-                //     this.rectLight,
-                //     {
-                //         width: 0.5 * 4,
-                //         height: 0.7 * 4,
-                //     },
-                //     "same"
-                // );
-
-                // this.bear.children.forEach((child) => {
-                //     if (child.name === "stones") {
-                //         this.first = GSAP.to(child.position, {
-                //             x: 0,
-                //             y: 0,
-                //             z: 0,
-                //             // duration: 0.3,
-                //         });
-                //     }
-                //     if (child.name === "stones") {
-                //         this.first = GSAP.to(child.scale, {
-                //             x: 0,
-                //             y: 0,
-                //             z: 0,
-                //         });
-                //     }
-                // });
 
                 // Third section -----------------------------
                 this.thirdMoveTimeline = new GSAP.timeline({
@@ -331,40 +197,8 @@ export default class Controls {
                         end: "bottom bottom",
                         scrub: 0.6,
                         invalidateOnRefresh: true,
-                        // onUpdate: () => {
-                        //     console.log("wait animation");
-                        //     this.previousAction = this.activeAction;
-                        //     this.activeAction = this.mixer.clipAction(this.animations[2]);
-
-                        //     if (this.activeAction !== this.previousAction) {
-                        //         this.previousAction.fadeOut(0.5);
-                        //     }
-
-                        //     this.activeAction.clampWhenFinished = true;
-                        //     this.activeAction.setLoop(THREE.LoopRepeat);
-
-                        //     this.activeAction
-                        //         .reset()
-                        //         .setEffectiveTimeScale(1)
-                        //         .setEffectiveWeight(1)
-                        //         .fadeIn(0.5)
-                        //         .play();
-                        // }
                     },
                 });
-                // .to(
-                //     this.bear.children[0].position,
-                //     {
-                //         x: () => {
-                //             return 2.1;
-                //         },
-                //     },
-                //     "same"
-                // );
-                // .to(this.camera.orthographicCamera.position, {
-                //     // z: 0.0001,
-                //     x: -3.1,
-                // });
             },
 
             // Mobile
@@ -372,8 +206,6 @@ export default class Controls {
                 // Resets
                 this.bear.scale.set(0.6, 0.6, 0.6);
                 this.bear.position.set(0, 0, 0);
-                // this.rectLight.width = 0.3;
-                // this.rectLight.height = 0.4;
                 this.camera.orthographicCamera.position.set(0, 6.5, 10);
 
                 // First section ---------------------------------------
@@ -383,14 +215,8 @@ export default class Controls {
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 0.6,
-                        // invalidateOnRefresh: true,
                     },
                 });
-                // .to(this.bear.scale, {
-                //     x: 0.1,
-                //     y: 0.1,
-                //     z: 0.1,
-                // });
 
                 // Second section --------------------------------------
                 this.secondMoveTimeline = new GSAP.timeline({
@@ -402,30 +228,6 @@ export default class Controls {
                         invalidateOnRefresh: true,
                     },
                 });
-                // .to(
-                //     this.bear.scale,
-                //     {
-                //         x: 0.25,
-                //         y: 0.25,
-                //         z: 0.25,
-                //     },
-                //     "same"
-                // )
-                // .to(
-                //     this.rectLight,
-                //     {
-                //         width: 0.3 * 3.4,
-                //         height: 0.4 * 3.4,
-                //     },
-                //     "same"
-                // )
-                // .to(
-                //     this.bear.position,
-                //     {
-                //         x: 1.5,
-                //     },
-                //     "same"
-                // );
 
                 // Third section --------------------------------------
                 this.thirdMoveTimeline = new GSAP.timeline({
@@ -437,18 +239,12 @@ export default class Controls {
                         invalidateOnRefresh: true,
                     },
                 });
-                // .to(this.bear.position, {
-                //     x: -1.5,
-                //     // z: -4.5,
-                // });
 
             },
 
             // all
             all: () => {
                 this.objects.flower.scale.set(2, 2, 2);
-                // this.objects.purpleFlower.scale.set(2, 2, 2);
-                // console.log(this.objects.purpleFlower.scale);
                 this.sections = document.querySelectorAll(".section");
                 this.sections.forEach((section) => {
                 });
@@ -485,13 +281,6 @@ export default class Controls {
                         },
                         "same"
                     );
-                // .to(
-                //     this.bear.position,
-                //     {
-                //         y: 0.7,
-                //     },
-                //     "same"
-                // );
 
                 // Third section -----------------------------------------
                 this.thirdCircle = new GSAP.timeline({
@@ -507,7 +296,7 @@ export default class Controls {
                     z: 3,
                 });
 
-                // Mini Platform Animations
+                // Fadein Stone
                 this.secondPartTimeline = new GSAP.timeline({
                     scrollTrigger: {
                         trigger: ".second-move",
@@ -516,14 +305,6 @@ export default class Controls {
                 });
 
                 this.bear.children.forEach((child) => {
-                    // if (child.name === "stones") {
-                    //     this.first = GSAP.to(child.position, {
-                    //         x: 3,
-                    //         y: 0.5,
-                    //         z: 0,
-                    //         duration: 0.3,
-                    //     });
-                    // }
                     if (child.name === "stones") {
                         this.first = GSAP.to(child.scale, {
                             x: 0.4,
@@ -543,26 +324,6 @@ export default class Controls {
                         scrub: 0.6,
                     },
                 });
-                // .to(
-                //     this.bear.children[1].position,
-                //     {
-                //         x: 3,
-                //         y: 0,
-                //         z: 0,
-                //         duration: 0.3,
-                //     },
-                //     "same"
-                // );
-                // .to(
-                //     this.bear.children[1].scale,
-                //     {
-                //         x: 0,
-                //         y: 0,
-                //         z: 0,
-                //         duration: 0.3,
-                //     },
-                //     "same"
-                // );
                 this.thirdMoveTimeline.add(this.second);
             }
         });
