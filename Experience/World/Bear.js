@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
 import GSAP from "gsap";
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
+import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 
 export default class Bear {
     constructor() {
@@ -9,6 +9,7 @@ export default class Bear {
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
         this.time = this.experience.time;
+        this.camera = this.experience.camera;
         this.bear = this.resources.items.bear;
         this.actualBear = this.bear.scene;
         this.bearChildren = {};
@@ -19,9 +20,13 @@ export default class Bear {
             ease: 0.1,
         };
 
+        GSAP.registerPlugin(ScrollTrigger);
+        this.activeAction = "";
+
         this.setModel();
         this.setAnimation();
         this.onMouseMove();
+        this.onScroll();
     }
 
     setModel() {
@@ -36,7 +41,6 @@ export default class Bear {
             if (child.name === "footprint") {
                 child.scale.set(0.1, 0.1, 0.1);
                 child.position.set(0, 0.3, 0);
-                // child.rotation.y = Math.PI / 4;
                 child.castShadow = false;
                 child.receiveShadow = false;
             }
@@ -44,17 +48,13 @@ export default class Bear {
             this.bearChildren[child.name.toLowerCase()] = child;
         });
 
-        // const width = 1;
-        // const height = 1;
-        // const intensity = 1;
-        // const rectLight = new THREE.RectAreaLight(0xffffff, intensity, width, height);
-        // rectLight.position.set(0, 0, 0);
-        // this.actualBear.add(rectLight);
+        // new THREE.PointLight(色, 光の強さ, 距離, 光の減衰率)
+        const light = new THREE.PointLight(0xFFFFFF, 1, 10, 1.0);
+        light.position.set(0, 1.5, 1.5);
+        this.actualBear.add(light);
 
-        // this.roomChildren["rectLight"] = rectLight;
-
-        // const rectLightHelper = new RectAreaLightHelper(rectLight);
-        // rectLight.add(rectLightHelper);
+        // const lightHelper = new THREE.PointLightHelper(light);
+        // light.add(lightHelper);
 
         this.scene.add(this.actualBear);
         this.actualBear.children[0].children[1].scale.set(0.6, 0.6, 0.6);
@@ -62,10 +62,9 @@ export default class Bear {
 
     setAnimation() {
         this.mixer = new THREE.AnimationMixer(this.actualBear);
-        this.walk = this.mixer.clipAction(this.bear.animations[2]);
-        this.walk.play();
-        // console.log(this.walk);
-        this.actionWalkWeight = 0;
+        this.activeAction = this.mixer.clipAction(this.bear.animations[5]);
+        this.activeAction.play();
+        this.animations = this.bear.animations;
     }
 
     onMouseMove() {
@@ -73,6 +72,17 @@ export default class Bear {
             this.rotation =
                 ((e.clientX - window.innerWidth / 2) * 2) / window.innerWidth;
             this.lerp.target = this.rotation * 0.001;
+        });
+    }
+
+    onScroll() {
+        window.addEventListener("wheel", (e) => {
+
+            if (this.scrollPercent > 1) {
+                this.mixer.update(this.time.delta * 0.01);
+            } else {
+                this.mixer.update(this.time.delta * -0.01);
+            }
         });
     }
 
@@ -86,10 +96,5 @@ export default class Bear {
         );
 
         this.actualBear.rotation.y = this.lerp.current;
-
-        this.mixer.update(this.time.delta * 0.0009);
-
-        this.actionWalkWeight += 0.01;
-        // console.log(this.actionWalkWeight);
     }
 }

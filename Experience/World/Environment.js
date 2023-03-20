@@ -7,6 +7,9 @@ export default class Environment {
     constructor() {
         this.experience = new Experience();
         this.scene = this.experience.scene;
+        this.resources = this.experience.resources;
+        this.particleTexture = this.resources.items.particleTexture;
+        this.flowerTexture = this.resources.items.flowerTexture;
 
         // this.gui = new GUI({ container: document.querySelector('.hero-main') });
         this.obj = {
@@ -15,15 +18,16 @@ export default class Environment {
         };
 
         this.setParticle();
+        this.setFlowers();
         this.setSunlight();
         // this.setGUI();
+        this.onScroll();
     }
 
     setGUI() {
         this.gui.addColor(this.obj, "colorObj").onChange(() => {
             this.sunLight.color.copy(this.obj.colorObj);
             this.ambientLight.color.copy(this.obj.colorObj);
-            // console.log(this.obj.colorObj);
         });
         this.gui.add(this.obj, "intensity", 0, 10).onChange(() => {
             this.sunLight.intensity = this.obj.intensity;
@@ -44,11 +48,38 @@ export default class Environment {
 
         this.firefliesGeometry.setAttribute('position', new THREE.BufferAttribute(this.positionArray, 3));
         // Material
-        this.firefliesMaterial = new THREE.PointsMaterial({ size: 5, sizeAttenuation: true });
+        this.firefliesMaterial = new THREE.PointsMaterial({
+            size: 20,
+            sizeAttenuation: true,
+            // map: this.particleTexture,
+            transparent: true,
+            alphaMap: this.particleTexture,
+            color: new THREE.Color('#ffffff')
+        });
         // Points
         this.fireflies = new THREE.Points(this.firefliesGeometry, this.firefliesMaterial);
         this.scene.add(this.fireflies);
         this.fireflies.position.set(0, -2, 0);
+    }
+
+    setFlowers() {
+        this.flowersbox = new THREE.Group();
+        const geometry = new THREE.PlaneGeometry(0.2, 0.2);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xFFFACD,
+            transparent: true,
+            alphaMap: this.flowerTexture,
+            // side: THREE.DoubleSide,
+        });
+        for (let x = 0; x < 50; ++x) {
+            this.flowers = new THREE.Mesh(geometry, material);
+            this.flowers.rotation.x = -0.5 * Math.PI;
+            this.flowers.position.set((Math.random() - 0.5) * 10, 0.2, (Math.random() - 0.5) * 10);
+            this.flowersbox.add(this.flowers);
+        }
+        this.scene.add(this.flowersbox);
+        this.flowersbox.position.set(0, -2, 0);
+
     }
 
     setSunlight() {
@@ -89,6 +120,11 @@ export default class Environment {
                 y: 0,
                 z: 0,
             });
+            GSAP.to(this.flowersbox.position, {
+                x: 0,
+                y: -2,
+                // z: 0,
+            });
         } else {
             GSAP.to(this.sunLight.color, {
                 r: 255 / 255,
@@ -111,7 +147,29 @@ export default class Environment {
                 y: -2,
                 z: 0,
             });
+            GSAP.to(this.flowersbox.position, {
+                x: 0,
+                y: 0,
+            });
         }
+    }
+
+    onScroll() {
+        window.addEventListener("wheel", (e) => {
+
+            if (e.deltaY > 1) {
+                this.flowersbox.position.z -= 0.1;
+            }
+            else if (this.flowersbox.position.z < -10) {
+                this.flowersbox.position.z = 10;
+            }
+            else if (this.flowersbox.position.z > 10) {
+                this.flowersbox.position.z = -10;
+            }
+            else {
+                this.flowersbox.position.z += 0.1;
+            }
+        });
     }
 
     resize() { }
